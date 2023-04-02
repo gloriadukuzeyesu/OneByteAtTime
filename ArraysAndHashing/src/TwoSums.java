@@ -3,7 +3,10 @@ import java.util.Map;
 
 
 public class TwoSums {
-    public int[] twoSum(int[] nums, int target) {
+    public static int[] twoSum(int[] nums, int target) {
+        if (nums == null) {
+            return null;
+        }
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             int compliment = target - nums[i];
@@ -14,5 +17,15 @@ public class TwoSums {
             }
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {2, 7, 11, 15};
+        int target = 9;
+        int[] sol = twoSum(nums, target);
+        for (int x : sol) {
+            System.out.print(x + " ");
+        }
+
     }
 }

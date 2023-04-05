@@ -1,3 +1,5 @@
+package ArraysAndHashing;
+
 public class BestTimeToBuyAndSellStockI {
     // This method returns the maximum profit that can be made by buying and selling
     // stocks given an array of stock prices.

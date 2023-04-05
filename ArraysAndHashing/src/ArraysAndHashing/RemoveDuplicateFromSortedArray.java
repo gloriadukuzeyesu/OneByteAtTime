@@ -1,3 +1,5 @@
+package ArraysAndHashing;
+
 //Qst Leetcode 26. Remove Duplicates from Sorted Array
 public class RemoveDuplicateFromSortedArray {
 

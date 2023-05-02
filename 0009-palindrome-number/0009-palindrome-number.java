@@ -1,14 +1,13 @@
 class Solution {
     public boolean isPalindrome(int x) { 
-        // when x is negative, we won't enter while loop. 
-        if(x < 0) {
+        if(x < 0) { // remove the negative numbers. 
             return false;
         }
         int reverse = 0;
-        int orginal =x;  
+        int orginal = x;  
         while(orginal != 0){ 
-            reverse = reverse*10+orginal%10;
-            orginal/=10;
+            reverse = reverse*10 + orginal%10;
+            orginal /= 10;
         }
         return reverse == x;
     }

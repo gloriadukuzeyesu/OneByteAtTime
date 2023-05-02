@@ -1,8 +1,6 @@
 class Solution {
-    public boolean isPalindrome(int x) { // -121 
-       // if(x<0){
-       //     return false;
-       // }
+    public boolean isPalindrome(int x) { 
+        // when x is negative, we won't enter while loop. 
         int reverse = 0;
         int orginal =x;  
         while(orginal > 0){ 

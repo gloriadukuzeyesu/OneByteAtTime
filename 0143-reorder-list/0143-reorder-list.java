@@ -17,10 +17,11 @@ class Solution {
             slow = slow.next; 
             fast = fast.next.next; 
         }
-        // this point slow is pointing at the middle of the listNode
+        // at this point the slow pointer  is pointing at the middle of the listNode
         // reverse the second half 
         ListNode HeadOfSecondHalf = slow.next; 
-        ListNode prev = slow.next = null; 
+        ListNode prev = slow.next = null;
+
         while (HeadOfSecondHalf != null) {
              ListNode nextNode = HeadOfSecondHalf.next; 
              HeadOfSecondHalf.next = prev; 

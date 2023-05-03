@@ -10,7 +10,9 @@
  */
 class Solution {
     public void reorderList(ListNode head) {
-        // reverse the second half of the listnode, find the middle of the node 
+        
+    // Step1: find the middle of the listnode  1->2->3->4 , slow p will be pointing at 2 when done
+        
         ListNode slow = head; 
         ListNode fast = head.next; 
         while (fast != null && fast.next != null) {
@@ -18,7 +20,7 @@ class Solution {
             fast = fast.next.next; 
         }
         // at this point the slow pointer  is pointing at the middle of the listNode
-        // reverse the second half 
+    // Step2 reverse the second half 1->2->4->3
         ListNode HeadOfSecondHalf = slow.next; 
         ListNode prev = slow.next = null;
 
@@ -29,7 +31,7 @@ class Solution {
              HeadOfSecondHalf = nextNode;     
         }
         
-        // reorder the whole list
+        // reorder the whole list 1->4->2->3
         HeadOfSecondHalf = prev;
         ListNode originalHead = head; 
         

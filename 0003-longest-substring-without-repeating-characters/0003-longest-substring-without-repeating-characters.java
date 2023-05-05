@@ -1,5 +1,6 @@
 class Solution {
     public int lengthOfLongestSubstring(String s) {
+        // sliding window question 
         Set<Character> set = new HashSet<>(); 
         int fast = 0, slow = 0, maxlength = 0; 
         while (fast < s.length()) {

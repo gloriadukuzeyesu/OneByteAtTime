@@ -14,6 +14,6 @@ class Solution {
             
             if(i == ss.length)  return true; 
         }
-        return false;    
+        return false;
     }
 }

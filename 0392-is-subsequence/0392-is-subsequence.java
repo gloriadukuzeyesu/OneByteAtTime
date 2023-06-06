@@ -1,19 +1,23 @@
 class Solution {
     public boolean isSubsequence(String s, String t) {
-        int i = 0; 
-        int j = 0; 
+        // UMPIRE  s =  "", t = "abc"
+        int ss = 0;
+        int tt = 0; 
+        if(s.length() == 0){
+            return true; 
+        } 
         
-        char ss [] = s.toCharArray(); 
-        char tt [] = t.toCharArray();
-        
-        if (ss.length < 1) return true; 
+        while ( tt < t.length()) {
+            if(s.charAt(ss) == t.charAt(tt)) {
+                ss++;  
+            } 
+            tt++;
     
-        while (j < tt.length) {
-            if( ss[i]  == tt[j] ) i++;  
-            j++;
+            if (ss == s.length()) {
+                return true; 
+            }
             
-            if(i == ss.length)  return true; 
         }
-        return false;
+        return false;   
     }
 }

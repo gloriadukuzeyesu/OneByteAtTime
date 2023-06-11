@@ -1,17 +1,7 @@
 class Solution {
     public String reverseVowels(String s) {
-        Set<Character> set = new HashSet<>(); 
-        set.add('e');
-        set.add('o');
-        set.add('u');
-        set.add('i');
-        set.add('a');
-
-        set.add('E');
-        set.add('O');
-        set.add('U');
-        set.add('I');
-        set.add('A');
+        
+        Set<Character> set = new HashSet<>(Arrays.asList('e', 'o', 'u','i','a','E','O','U','I','A'));
 
         StringBuilder sb = new StringBuilder(s); 
         int i = 0; 

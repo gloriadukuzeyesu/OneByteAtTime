@@ -10,19 +10,19 @@
  * }
  */
 public class Solution {
-    public boolean hasCycle(ListNode head) { 
-        if(head == null) {
-            return false; 
-        }
+    public boolean hasCycle(ListNode head) {
         ListNode slow = head; 
         ListNode fast = head; 
-        while (fast!= null && fast.next != null) {
-            slow = slow.next; 
+        // fast pointer move twice as slow. Eventually the fast pointer will catch the slow    
+        //pointer if there is a cycle. 
+
+        while(fast != null && fast.next != null) {
             fast = fast.next.next; 
-            if(slow == fast) {
+            slow = slow.next;
+            if(fast == slow) {
                 return true; 
-            }
+            }       
         }
-        return false;    
+        return false; 
     }
 }

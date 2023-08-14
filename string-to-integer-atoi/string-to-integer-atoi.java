@@ -12,19 +12,18 @@ class Solution {
         
         final int INT_MAX = 2147483647;
         final int INT_MIN = -2147483648;
-        
-        double finalNumber = 0; 
 
+        double finalNumber = 0; 
         while (index < s.length() && s.charAt(index) >='0' &&  s.charAt(index) <= '9'){
             finalNumber = finalNumber * 10 + (s.charAt(index) - '0'); 
             index++; 
         }
         finalNumber = isNegative ? -finalNumber : finalNumber; 
-        if(finalNumber < INT_MIN) {
-            return INT_MIN;
+        if(finalNumber < Integer.MIN_VALUE) {
+            return Integer.MIN_VALUE;
         }
-        if(finalNumber > INT_MAX) {
-            return INT_MAX; 
+        if(finalNumber > Integer.MAX_VALUE) {
+            return Integer.MAX_VALUE; 
         }
         return (int) finalNumber; 
     }

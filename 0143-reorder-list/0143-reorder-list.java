@@ -10,38 +10,36 @@
  */
 class Solution {
     public void reorderList(ListNode head) {
-        
-    // Step1: find the middle of the listnode  1->2->3->4 , slow p will be pointing at 2 when done
-        
+        // find the middle of the head
         ListNode slow = head; 
         ListNode fast = head.next; 
+        
         while (fast != null && fast.next != null) {
-            slow = slow.next; 
-            fast = fast.next.next; 
+            slow = slow.next;
+            fast = fast.next.next;
         }
-        // at this point the slow pointer  is pointing at the middle of the listNode
-    // Step2 reverse the second half 1->2->4->3
-        ListNode HeadOfSecondHalf = slow.next; 
-        ListNode prev = slow.next = null;
-
-        while (HeadOfSecondHalf != null) {
-             ListNode nextNode = HeadOfSecondHalf.next; 
-             HeadOfSecondHalf.next = prev; 
-             prev = HeadOfSecondHalf; 
-             HeadOfSecondHalf = nextNode;     
+        // 2nd part of the listnode
+        // reverse the 2nd portion of node
+        ListNode newNode = slow.next; 
+        slow.next = null; 
+        ListNode prev = null; 
+        while(newNode != null) {
+            ListNode temp = newNode.next;
+            newNode.next = prev; 
+            prev = newNode; 
+            newNode = temp;
         }
+        // head of the reversed head is prev; 
         
-        // reorder the whole list 1->4->2->3
-        HeadOfSecondHalf = prev;
-        ListNode originalHead = head; 
-        
-        while(HeadOfSecondHalf!=null) {
-            ListNode temp1 = originalHead.next; 
-            ListNode temp2 = HeadOfSecondHalf.next; 
-            originalHead.next = HeadOfSecondHalf; 
-            HeadOfSecondHalf.next = temp1; 
-            originalHead = temp1; 
-            HeadOfSecondHalf = temp2;
-        }
+        ListNode p1 = head; 
+        newNode = prev; 
+        while (newNode != null) {
+            ListNode temp1 = p1.next; 
+            ListNode temp2 = newNode.next;
+            p1.next = newNode; 
+            newNode.next = temp1; 
+            p1 = temp1;
+            newNode = temp2;
+        } 
     }
 }

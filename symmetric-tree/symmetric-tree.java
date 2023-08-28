@@ -15,20 +15,28 @@
  */
 class Solution {
     public boolean isSymmetric(TreeNode root) {
-        return root == null || checkSymmetric(root.left, root.right);   
-    }
-    private boolean checkSymmetric(TreeNode subtree0, TreeNode subtree1) {
-        if(subtree0 == null && subtree1 == null) {
+        if(root == null) {
             return true; 
         }
-        if(subtree0 == null || subtree1 == null || subtree0.val != subtree1.val) {
-            return false; 
+        Stack<TreeNode> stack = new Stack<>(); 
+        stack.push(root.left); 
+        stack.push(root.right); 
+        TreeNode LEFT; 
+        TreeNode RIGHT; 
+        while(!stack.isEmpty()) {
+            RIGHT = stack.pop(); 
+            LEFT = stack.pop(); 
+            if(LEFT == null && RIGHT == null) {
+                continue; 
+            }
+            if(LEFT == null || RIGHT == null || LEFT.val != RIGHT.val) {
+                return false; 
+            }
+            stack.push(LEFT.left);
+            stack.push(RIGHT.right);
+            stack.push(LEFT.right);
+            stack.push(RIGHT.left);
         }
-        // if() {
-        //     return false; 
-        // }
-        
-        return checkSymmetric(subtree0.left, subtree1.right) && checkSymmetric(subtree0.right,   
-                                                                               subtree1.left); 
+        return true;
     }
 }

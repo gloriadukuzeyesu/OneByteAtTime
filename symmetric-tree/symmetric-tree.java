@@ -21,12 +21,12 @@ class Solution {
         if(subtree0 == null && subtree1 == null) {
             return true; 
         }
-        if(subtree0 == null || subtree1 == null) {
+        if(subtree0 == null || subtree1 == null || subtree0.val != subtree1.val) {
             return false; 
         }
-        if(subtree0.val != subtree1.val) {
-            return false; 
-        }
+        // if() {
+        //     return false; 
+        // }
         
         return checkSymmetric(subtree0.left, subtree1.right) && checkSymmetric(subtree0.right,   
                                                                                subtree1.left); 

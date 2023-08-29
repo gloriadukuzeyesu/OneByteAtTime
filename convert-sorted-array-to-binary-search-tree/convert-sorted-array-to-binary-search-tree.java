@@ -31,9 +31,9 @@ class Solution {
         if(left > right) {
             return null; 
         }
-        if(left == right) {
-            return new TreeNode(nums[left]);
-        }
+        // if(left == right) {
+        //     return new TreeNode(nums[left]);
+        // }
         int mid = left + (right - left) / 2; 
         TreeNode root = new TreeNode (nums[mid]); 
         root.left = buildBalancedBST(nums, left, mid - 1); 

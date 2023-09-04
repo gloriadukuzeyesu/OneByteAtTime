@@ -20,7 +20,6 @@ class Solution {
                 return curr; 
             }
         }
-        return curr;
-        
+        return null;   
     }
 }

@@ -15,18 +15,15 @@
  */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        return validate(root, null, null); 
+        return areKeysInRange(root, null, null); 
     }
-    private boolean validate(TreeNode root, Integer max, Integer min) {
-        // if we reach the end of the tree, return true
-        if(root == null) {
-            return true; 
-        } else if (max != null && root.val >= max || min != null && root.val <= min) {
-            return false; 
-        } else {
-            // recursively call left and right children and validate them as well
-            return validate(root.left, root.val, min) && validate(root.right, max, root.val); 
+    public boolean areKeysInRange(TreeNode root, Integer min, Integer max) {
+        if (root == null) return true;
+
+        if ((min != null && root.val <= min) || max != null && root.val >= max){
+            return false;
         }
-        
+
+        return areKeysInRange(root.left, min, root.val) && areKeysInRange(root.right, root.val, max);
     }
 }

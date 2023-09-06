@@ -20,7 +20,6 @@ class Solution {
             char curr = charSt.pop();
             while(end --> 0) {
                 sb.append(curr); 
-                //end--;
             }
         }
         return sb.reverse().toString(); 

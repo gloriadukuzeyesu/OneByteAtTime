@@ -4,23 +4,33 @@ class Solution {
         Stack<Integer> counter = new Stack<>(); 
         for(char c : s.toCharArray()) {
             if(charSt.size() > 0 && charSt.peek() == c) {
-                counter.push(counter.peek() + 1); 
+                int curr = counter.pop(); 
+                counter.push(curr + 1); 
             } else {
                 
                 counter.push(1);
+                charSt.push(c);
             }
-            charSt.push(c);
+            
             
             if(counter.peek() == k) {
-                for(int i = 0; i < k ; i++) {
-                    charSt.pop();
-                    counter.pop(); 
-                }
+                  charSt.pop();
+                  counter.pop(); 
+                // for(int i = 0; i < k ; i++) {
+                //     charSt.pop();
+                //     counter.pop(); 
+                // }
             }
         }
         StringBuilder sb  = new StringBuilder(); 
         while(charSt.size()> 0) {
-            sb.append(charSt.pop());
+            int end = counter.pop();
+            char curr = charSt.pop();
+            while(end > 0) {
+                sb.append(curr); 
+                end--;
+            }
+            //sb.append(charSt.pop());
         }
         return sb.reverse().toString(); 
     }

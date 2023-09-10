@@ -16,10 +16,7 @@
 class Solution {
     public int kthSmallest(TreeNode root, int k) {
         PriorityQueue<Integer> maxHeap = new PriorityQueue<>(k, (a,b) -> b - a);
-       // List<Integer> list = new ArrayList<>(); 
-        // 1, 2, 3, 4, 5    k = 3
         inorderTraversal(root, maxHeap, k); 
-        //return list.get(k - 1)
         return maxHeap.poll(); 
     }
     

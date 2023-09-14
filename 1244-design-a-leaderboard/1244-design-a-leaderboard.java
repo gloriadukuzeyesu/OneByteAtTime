@@ -11,7 +11,6 @@ class Leaderboard {
         }else {
             map.put(playerId, score); 
         }
-            //map.put(playerId, map.getOrDefault(playerId, 0) + score); 
     }
     
     public int top(int K) {
@@ -20,24 +19,39 @@ class Leaderboard {
         for(int key : map.keySet())  {
             list.add(map.get(key)); // list contains
         }
-        // quick select 
-        Collections.sort(list); 
-        int sum = 0; 
-        // for(int i = list.size() - 1 ; i >= K; i--) {
-        //     sum = sum + list.get(i); 
-        // }
-        int index = list.size() - 1; 
-        while ( K > 0) {
-            sum = sum + list.get(index); 
-            index --; 
-            K--; 
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>( (a,b) -> a - b);
+        for(int score : map.values()) {
+            if(maxHeap.size() < K ) {
+                maxHeap.offer(score); 
+            } else if (score > maxHeap.peek()) {
+                maxHeap.poll(); 
+                maxHeap.offer(score); 
+            }
         }
-        return sum;    
+        // int total = 0; 
+        // for(int score : maxHeap) {
+        //     score = score + score; 
+        // }
+// //         for(int i = 0; i < list.size(); i++) {
+// //             if(maxHeap.size() < K) {
+//                 maxHeap.offer(list.get(i)); 
+//             } else if ( maxHeap.peek() > list.get(i) ) {
+//                  maxHeap.poll(); 
+//                  maxHeap.offer(list.get(i)); 
+//             }
+//         }
+        
+        // traverse the heap and find sum
+        Iterator <Integer> it = maxHeap.iterator(); 
+        int total = 0; 
+        while(it.hasNext()) {
+            total = total + it.next(); 
+        }
+        return total;    
     }
     
     public void reset(int playerId) {
         map.put(playerId, 0);    
-       // map.remove(playerId); // remove them from 
     }
 }
 

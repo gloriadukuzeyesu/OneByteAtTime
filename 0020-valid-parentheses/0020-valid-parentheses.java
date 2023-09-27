@@ -1,41 +1,19 @@
 class Solution {
-    
-     public boolean isValid(String s) {
-        Stack<Character> brackets = new Stack<>();
-        Map<Character, Character> bracketLookup = new HashMap<>(3);
-
-        bracketLookup.put(')', '(');
-        bracketLookup.put('}', '{');
-        bracketLookup.put(']', '[');
-
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (bracketLookup.containsKey(c)) {
-                if (!brackets.isEmpty() && bracketLookup.get(c).equals(brackets.peek())) {
-                    brackets.pop();
-                } else {
+    public boolean isValid(String s) {
+        Map<Character, Character> map = new HashMap<>(); 
+        map.put('(', ')');
+        map.put('{', '}');
+        map.put('[', ']');
+        Stack<Character> stack = new Stack<>(); 
+        for (char c : s.toCharArray()) {
+            if (map.containsKey(c)) {
+                stack.push(c);
+            } else {
+                if (stack.isEmpty() || map.get( stack.pop() ) != c) {
                     return false;
                 }
-            } else {
-                brackets.push(c);
             }
         }
-
-        return brackets.isEmpty();
+        return stack.isEmpty(); 
     }
-    
-//     public boolean isValid(String s) {
-//         Map<Character, Character> map = new HashMap<>(); 
-//         map.put('(', ')');
-//         map.put('{', '}');
-//         map.put('[',']');
-        
-//         for(int i = 0; i < s.length(); i++) {
-//             char c = s.charAt(i); 
-//             if(map.containsKey(c)) {
-                
-//             }
-//         }
-        
-//     }
 }

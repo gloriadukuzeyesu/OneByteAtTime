@@ -1,26 +1,32 @@
 class Solution {
     public int characterReplacement(String s, int k) {
-        Map<Character, Integer> map = new HashMap<>();
-        int l = 0; 
+        // windowLen - count{x} <= k // valid window 
+        Map<Character, Integer> counter = new HashMap<>();
+        int L = 0; 
+        int R = 0; 
         int res = 0; 
-        for(int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i); 
-            map.put(c, map.getOrDefault(c,0) + 1); 
-            int maxVal = maxCount(map);
-            if(i - l + 1 - maxVal > k) {
-                map.put(s.charAt(l), map.get(s.charAt(l)) - 1);
-                l++;
+        while ( R < s.length()) {
+            counter.put(s.charAt(R), counter.getOrDefault(s.charAt(R), 0) + 1); 
+            int maxVal = maxCount (counter); 
+            // check if it is a valid window
+            if (R - L + 1  - maxVal <= k) {
+                // valid window 
+                res = Math.max(res, R - L + 1);  
+            } else {
+                // shrink the counter 
+                counter.put(s.charAt(L), counter.getOrDefault(s.charAt(L), 0) - 1); 
+                L++; 
             }
-            res = Math.max(res, i - l + 1);
+             R++;
+            
         }
         return res; 
     }
-
-    private int maxCount(Map<Character, Integer>count) {
-        int max = 0; 
-        for(int val : count.values()) {
-            max = Math.max(val, max);
+    static int maxCount (Map<Character, Integer> counter) {
+        int maxCount = 0; 
+        for(int val : counter.values()) {
+            maxCount = Math.max(val, maxCount);
         }
-        return max; 
-    } 
+        return maxCount; 
+    }
 }

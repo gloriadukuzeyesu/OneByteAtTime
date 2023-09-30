@@ -1,17 +1,26 @@
 class Solution {
     public boolean isPalindrome(String s) {
-        if(s.length() <=0) return true; 
-        s = s.toLowerCase(); 
-        int i = 0, j = s.length() - 1; 
-        while ( i < j) {
-            while (i < j && !Character.isLetterOrDigit(s.charAt(i))) i++;
-           while (i < j & !Character.isLetterOrDigit(s.charAt(j))) j--; 
-                  
-            if(s.charAt(i) != s.charAt(j)) return false; 
-            i++;
-            j--;
+        
+        String sCopy = s.toLowerCase(); 
+        int f = 0; 
+        int b = sCopy.length() - 1; 
+        
+        while ( f < b) {
+            while( !Character.isLetterOrDigit(sCopy.charAt(f))  && f < b) {
+                f++; 
+            }
+            
+            while ( !Character.isLetterOrDigit(sCopy.charAt(b)) && f < b) {
+                b--; 
+            }
+            
+            if(sCopy.charAt(f) != sCopy.charAt(b)) {
+                return false;
+            }
+            f++;
+            b--; 
+        }
+        return true;
 
-        } 
-        return true;     
     }
 }

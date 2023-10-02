@@ -1,14 +1,21 @@
 class Solution {
     public int climbStairs(int n) {
-        int one = 1; 
-        int two = 1;
+        int[] memo = new int[n];
+        return climb_Stairs(0, n, memo);
         
-        for(int i = 0; i < n - 1; i++) {
-            int temp = one;
-            one = one + two; 
-            two = temp;
+    }
+    
+    public int climb_Stairs(int i, int n, int[] memo) {
+        if(i > n) {
+            return 0;
         }
-        return one;
-        
+        if(i== n) {
+            return 1;
+        }
+        if(memo[i] > 0) {
+            return memo[i]; 
+        }
+        memo[i] = climb_Stairs( i + 1, n, memo) + climb_Stairs(i + 2, n, memo);
+        return memo[i];
     }
 }

@@ -1,21 +1,23 @@
 class Solution {
     public int climbStairs(int n) {
-        int[] memo = new int[n];
-        return climb_Stairs(0, n, memo);
+        Map<Integer, Integer> memo = new HashMap<>();
+        return climb_Stairs(n, memo);
         
     }
     
-    public int climb_Stairs(int i, int n, int[] memo) {
-        if(i > n) {
-            return 0;
+    public int climb_Stairs(int n, Map<Integer, Integer> memo) {
+        if(memo.containsKey(n)) {
+            return memo.get(n);
         }
-        if(i== n) {
+        if(n == 0) {
             return 1;
         }
-        if(memo[i] > 0) {
-            return memo[i]; 
+        if(n < 0) {
+            return 0;
         }
-        memo[i] = climb_Stairs( i + 1, n, memo) + climb_Stairs(i + 2, n, memo);
-        return memo[i];
+        
+        int ways = climb_Stairs( n - 1, memo) + climb_Stairs(n - 2, memo);
+        memo.put(n, ways);
+        return ways;
     }
 }

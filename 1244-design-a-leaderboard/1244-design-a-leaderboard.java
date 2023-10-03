@@ -13,22 +13,22 @@ class Leaderboard {
     
     public int top(int K) {
         // max heap. 
-        PriorityQueue<Integer> maxHeap = new PriorityQueue <>( (a,b) -> a - b); 
+        PriorityQueue<Integer> minHeap = new PriorityQueue <>( (a,b) -> a - b); 
         for(int score : map.values()) {
-            if(maxHeap.size() < K) {
+            if(minHeap.size() < K) {
                 // add
-                maxHeap.add(score); 
+                minHeap.add(score); 
             } else {
-                if(score > maxHeap.peek()) {
-                    maxHeap.poll();
-                    maxHeap.add(score); 
+                if(score > minHeap.peek()) {
+                    minHeap.poll();
+                    minHeap.add(score); 
                 }
             }    
         }
         
         int sum = 0; 
         for(int i = 0; i < K ; i++) {
-            sum += maxHeap.poll();
+            sum += minHeap.poll();
         }
         return sum;
         

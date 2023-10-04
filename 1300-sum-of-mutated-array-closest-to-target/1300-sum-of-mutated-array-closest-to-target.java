@@ -22,9 +22,9 @@ class Solution {
             // int mid = (l + r) / 2; 
             int mid = l + ((r - l) / 2);
             int sum = calculateSum(arr, mid);
-            if(sum == target) {
-                return mid; 
-            }
+//             if(sum == target) {
+//                 return mid; 
+//             }
       
             if(sum < target) {
                 l = mid + 1; 
@@ -41,7 +41,6 @@ class Solution {
         if(Math.abs(first-target) < Math.abs(second-target)) {
             return l;
         }
-        
         return l - 1;
 
     }

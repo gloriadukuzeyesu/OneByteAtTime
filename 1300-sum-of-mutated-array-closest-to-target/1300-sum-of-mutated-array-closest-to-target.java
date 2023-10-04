@@ -17,32 +17,22 @@ class Solution {
         for(int i = 0; i < arr.length; i++) {
             r = Math.max(r, arr[i]);
         }
-        
-        while(l < r) {
-            // int mid = (l + r) / 2; 
+        while(l <= r) {
             int mid = l + ((r - l) / 2);
             int sum = calculateSum(arr, mid);
-//             if(sum == target) {
-//                 return mid; 
-//             }
-      
             if(sum < target) {
                 l = mid + 1; 
             } else{
-                r = mid;
+                r = mid - 1;
             }
-            
- 
         }
-        
         int first = calculateSum(arr,l);
         int second = calculateSum(arr,l-1);
-        
-        if(Math.abs(first-target) < Math.abs(second-target)) {
+
+        if(Math.abs(first - target) < Math.abs(second - target)) {
             return l;
         }
         return l - 1;
-
     }
  
 }

@@ -1,20 +1,23 @@
 class Solution {
     public int findMin(int[] nums) {
+        
         int l = 0;
         int r = nums.length - 1;
 
-        while (l <= r) {
-            if (nums[l] <= nums[r]) {
-                return nums[l];
-            }
+        while (l < r) {
+            int mid = l + (r - l) / 2;
 
-            int mid = (l + r) / 2;
-            if (nums[mid] >= nums[l]) {
+            if (nums[mid] > nums[r]) {
+                // The minimum element is on the right side
                 l = mid + 1;
             } else {
+                // The minimum element is on the left side or at mid
                 r = mid;
             }
         }
-        return 0;
+
+        // When the loop exits, 'l' will be pointing to the minimum element
+        return nums[l];
+        
     }
 }

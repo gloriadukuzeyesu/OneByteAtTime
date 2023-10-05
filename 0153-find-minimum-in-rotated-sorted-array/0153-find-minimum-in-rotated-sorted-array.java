@@ -5,7 +5,8 @@ class Solution {
         int r = nums.length - 1;
 
         while (l < r) {
-            int mid = l + (r - l) / 2;
+           // int mid = l + (r - l) / 2; //  
+            int mid = (l + r )/ 2 ;
 
             if (nums[mid] > nums[r]) {
                 // The minimum element is on the right side
@@ -15,7 +16,6 @@ class Solution {
                 r = mid;
             }
         }
-
         // When the loop exits, 'l' will be pointing to the minimum element
         return nums[l];
         

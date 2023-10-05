@@ -1,48 +1,50 @@
 class Solution {
     public long maxStrength(int[] nums) {
-        long posPr = 1; 
-        long negPro = 1; 
+        long posPro = 1;
+        long negPro = 1;
+            
+        int maxNeg = Integer.MIN_VALUE; 
         
-        int maxNeg = Integer.MIN_VALUE;
-        int NegCount = 0; 
+        int negCount = 0;
         
-        boolean hasPos = false; 
-        boolean hasZero = false; 
+        boolean hasPos = false;
+        boolean hasZero = false;
         
         for(int num : nums) {
             if(num > 0) {
-                posPr *= num;
-                hasPos = true; 
+                posPro  = posPro * num;
+                hasPos = true;
             } else if (num < 0) {
-                // negative 
-                negPro *= num; 
-                maxNeg = Math.max(maxNeg, num); 
-                NegCount++;  
+                negPro *= num;
+                negCount++;
+                maxNeg = Math.max(maxNeg,num);
+                
             } else {
                 hasZero = true;
             }
+            
         }
         
-        // if we no negative number and no positive
-        if(NegCount == 0 && !hasPos) {
+        if(negCount == 0 && !hasPos) {
             return 0;
         }
         
-        // if there is even neg number
-        if(NegCount % 2 == 0) {
-            return posPr * negPro; 
+        if(negCount % 2 == 0) {
+            return posPro * negPro;
         }
         
-        // in case there is an odd number of negatives, remove the max one to maximize the product
-        if(NegCount >= 2){
-           return (negPro / maxNeg) * posPr;
+        if(negCount >= 2) {
+           return (negPro / maxNeg) * posPro;
         }
+        
         if(hasPos) {
-            return posPr;
+            return posPro;
         }
+        
         if(hasZero) {
             return 0;
         }
+        
         return maxNeg;
     }
 }

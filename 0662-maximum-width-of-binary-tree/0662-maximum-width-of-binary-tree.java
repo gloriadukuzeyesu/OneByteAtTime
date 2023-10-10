@@ -14,24 +14,15 @@
  * }
  */
 class Solution {
-    public int widthOfBinaryTree(TreeNode root) {
-        // BFS traverl
-        
-        // create a queue and maxcount
-        // visit nodes level by level
-        // update the maxCount based on the nodes in the queu 
-        
+    public int widthOfBinaryTree(TreeNode root) {        
         int maxCount = 0; 
-        LinkedList<Pair<TreeNode, Integer>> queue = new LinkedList<>(); 
-        
-        queue.add(new Pair<>(root,1)); 
-        
+        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>(); 
+        queue.add(new Pair<>(root,0)); 
         maxCount = queue.size(); 
         
         while(!queue.isEmpty()) {
             int size = queue.size();
-            Pair<TreeNode, Integer> head = queue.getFirst();
-            int indexF = head.getValue();
+            int indexF = queue.peek().getValue();
             
             for(int i = 0; i < size; i++) {
                 Pair<TreeNode, Integer> curr = queue.poll();
@@ -51,8 +42,7 @@ class Solution {
                     maxCount = currWidth;
                 }
             }
-            
-            //maxCount = Math.max(maxCount,queue);   
+ 
         }
         return maxCount;
     }

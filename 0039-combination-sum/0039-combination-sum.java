@@ -3,21 +3,21 @@ class Solution {
         
         List<List<Integer>> res = new ArrayList<>(); 
         List<Integer> curr = new ArrayList<>(); 
-        dfs(res, candidates, curr,target, 0,0);
+        dfs(res, candidates, curr,0,target);
         return res; 
     }
-    void dfs( List<List<Integer>> res, int[] candidates,List<Integer> curr,int target,int i,int total) {
-        if(total == target) {
+    void dfs( List<List<Integer>> res, int[] candidates,List<Integer> curr,int i,int target) {
+        if(target == 0) {
             res.add(new ArrayList<>(curr)); 
             return; 
         }
-        if(i >= candidates.length || total > target ) {
+        if(i >= candidates.length ||  target < 0 ) {
             return; 
         }
         curr.add(candidates[i]); 
-        dfs(res, candidates, curr, target, i, total + candidates[i]); 
+        dfs(res, candidates, curr,i, target - candidates[i]); 
         curr.remove(curr.size() - 1);
-        dfs(res, candidates, curr, target, i + 1, total); 
+        dfs(res, candidates, curr,i + 1, target); 
     }
     
 }

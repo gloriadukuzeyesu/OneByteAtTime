@@ -1,50 +1,40 @@
+// class Solution {
+//     public void merge(int[] nums1, int m, int[] nums2, int n) {
+//         int p1 = n - 1; 
+//         int p2 = m - 1; 
+//         for(int p = m + n - 1; p >= 0 ; p--) {
+            
+//             if(p2 < 0) {
+//                 break; // no more element in num2;
+//             }
+            
+//             if( p1 >= 0 && nums1[p1] > nums2[p2]) {
+//                 nums1[p] = nums1[p1--];
+//             } else {
+//                 nums1[p]  = nums2[p2--];
+//             }
+//          }
+
+//         }
+// }
+
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        int i = 0, j = 0; 
-        int prev = -1;
-        int [] res = new int[m + n];
-        int k = 0;
-        while(i < m & j < n) {
-            if(nums1[i] <= nums2[j]) {
-                res[k] = nums1[i];
-                i++;
-            } else {
-                 res[k] = nums2[j];
-                j++;
+        // Set p1 and p2 to point to the end of their respective arrays.
+        int p1 = m - 1;
+        int p2 = n - 1;
+        
+        // And move p backwards through the array, each time writing
+        // the smallest value pointed at by p1 or p2.
+        for (int p = m + n - 1; p >= 0; p--) {
+            if (p2 < 0) {
+                break;
             }
-            k++;
+            if (p1 >= 0 && nums1[p1] > nums2[p2]) {
+                nums1[p] = nums1[p1--];
+            } else {
+                nums1[p] = nums2[p2--];
+            }
         }
-        
-        while(i < m) {
-            res[k] = nums1[i];
-            k++;
-            i++; 
-        }
-        while( j < n) {
-            res[k] = nums2[j]; 
-            k++;
-            j++; 
-        }
-        
-        for(int x = 0; x  < nums1.length; x ++) {
-            nums1[x] = res[x]; 
-        }
-        
-        
-//         while ( i < m && j < n) {
-//             if(nums1[i] <= nums2[j]) {
-//                 int temp = nums1[i];
-//                 nums1[i] = nums2[j];
-//                 j++;
-//                 i++;
-//                 prev = temp; 
-                
-//             }
-//         }
-        
     }
-    
-    // pi
-    // p2 
-    
 }

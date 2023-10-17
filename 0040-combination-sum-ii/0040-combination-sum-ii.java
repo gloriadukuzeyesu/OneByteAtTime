@@ -14,14 +14,12 @@ class Solution {
         if(target <= 0) {
             return; 
         }
-        int prev = -1;
+       // int prev = -1;
         for(int j = i; j < candidates.length; j++) {
-            if(candidates[j] == prev) continue;
+            if( j > i && candidates[j] == candidates[j - 1]) continue; 
             curr.add(candidates[j]); 
             dfs(res, curr, candidates, target - candidates[j], j + 1); 
-            curr.remove(curr.size() - 1);
-            prev = candidates[j];
-            
+            curr.remove(curr.size() - 1);            
         }
         return;
     }

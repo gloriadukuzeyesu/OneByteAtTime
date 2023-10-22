@@ -1,6 +1,14 @@
 class Solution {
     public String reformatDate(String date) {
         String[] dateSplited = date.split(" ");
+        StringBuilder sb = new StringBuilder();  
+        String dayOg = dateSplited[0];
+        String day = dayOg.length() == 3 ? ("0" + dayOg.substring(0, 1)) : dayOg.substring(0, 2); 
+        sb.append(dateSplited[2]).append("-").append(getMonth(dateSplited[1])).append("-").append(day);
+        return sb.toString();
+    }
+    
+    public String getMonth(String month) {
         Map<String, String> months = new HashMap<>(); 
         months.put("Jan", "01");
         months.put("Feb", "02");
@@ -14,32 +22,6 @@ class Solution {
         months.put("Oct", "10");
         months.put("Nov", "11");
         months.put("Dec", "12");
-        
-        StringBuilder sb = new StringBuilder(); 
-        
-       //sb.append(ss[0].length() == 3 ? ("0" + ss[0].substring(0, 1)) : ss[0].substring(0, 2));
-        
-
-        String dayOg = dateSplited[0];
-        String day = dayOg.length() == 3 ? ("0" + dayOg.substring(0, 1)) : dayOg.substring(0, 2); 
-            
-//        = "";
-//         for(int i = 0; i < dayOriginal.length(); i++) {
-//             if(Character.isDigit(dayOriginal.charAt(i))) {
-//                 day += dayOriginal.charAt(i);
-//             } else{
-//                 break; 
-//             }
-//         }
-//         if(day.length() == 1) {
-//             day = "0" + day; 
-//         }
-        
-       String monthOriginal = dateSplited[1];
-       String month = months.get(monthOriginal); 
-    
-        String year = dateSplited[2];
-        sb.append(year).append("-").append(month).append("-").append(day);
-        return sb.toString();
+        return months.get(month); 
     }
 }

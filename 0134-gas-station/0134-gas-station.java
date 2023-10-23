@@ -1,38 +1,29 @@
 class Solution {
     public int canCompleteCircuit(int[] gas, int[] cost) {
-       int n = gas.length; 
-        int totoSurplus = 0; 
-        int surplus = 0; 
-        int start = 0; 
-        for(int i = 0; i < n; i++) {
-            totoSurplus += gas[i] - cost[i]; 
-            surplus += gas[i] - cost[i]; 
-            if(surplus < 0) {
-                surplus = 0; 
-                start = i + 1; 
+        int n = gas.length;
+        int totalGas = 0;  // Total gas available.
+        int currentGas = 0;  // Current gas tank level.
+        int startStation = 0;  // Potential starting station.
+
+        for (int i = 0; i < n; i++) {
+            int diff = gas[i] - cost[i];
+            totalGas += diff;
+            currentGas += diff;
+
+            // If the current gas level becomes negative, reset the starting station and gas tank.
+            if (currentGas < 0) {
+                currentGas = 0;
+                startStation = i + 1;
             }
         }
-        return totoSurplus < 0 ? -1 : start; 
-        
-        // if(totoSurplus < 0 ) {
-        //     return - 1; 
-        // } else {
-        //     return start; 
-        // }
-    }
-}
 
-// int n = gas.length;
-//         int total_surplus = 0;
-//         int surplus = 0;
-//         int start = 0;
+        // If the total gas available is greater than or equal to the total cost, a valid starting station exists.
+        if (totalGas >= 0) {
+            return startStation;
+        } else {
+            return -1;  // Cannot complete the circuit.
+        }
+    }
         
-//         for(int i = 0; i < n; i++){
-//             total_surplus += gas[i] - cost[i];
-//             surplus += gas[i] - cost[i];
-//             if(surplus < 0){
-//                 surplus = 0;
-//                 start = i + 1;
-//             }
-//         }
-//         return (total_surplus < 0) ? -1 : start;
+    
+}

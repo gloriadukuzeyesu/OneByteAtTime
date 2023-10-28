@@ -1,36 +1,38 @@
 class MinStack {
-    private Node head; 
+    Stack<Integer> stack = new Stack<>(); 
+    Stack<int[]> minTracker = new Stack<>();
+
+    public MinStack() {
+        
+    }
     
     public void push(int val) {
-        if(head == null) {
-            head = new Node (val, val,null); 
-        } else {
-            head = new Node (val, Math.min(val, head.min), head);
+        stack.push(val);
+        if(minTracker.isEmpty() || val < minTracker.peek()[0]) {
+            minTracker.push(new int[]{val, 1}); 
+        } else if(val == minTracker.peek()[0]) {
+            minTracker.peek()[1]++;
         }
+        
     }
     
     public void pop() {
-        head = head.next;  
+        if(stack.peek() == minTracker.peek()[0]) {
+            minTracker.peek()[1]--;
+        }
+        if(minTracker.peek()[1] == 0) {
+            minTracker.pop();
+        }
+         stack.pop();
     }
     
     public int top() {
-        return head.value;  
+        return stack.peek();
+        
     }
     
     public int getMin() {
-        return head.min;  
-    }
-    
-    private class Node {
-        public int value; 
-        public int min; 
-        Node next; 
-        
-        public Node (int val, int min, Node next){
-            this.value = val; 
-            this.min = min; 
-            this.next = next; 
-        }
+        return minTracker.peek()[0];
     }
 }
 

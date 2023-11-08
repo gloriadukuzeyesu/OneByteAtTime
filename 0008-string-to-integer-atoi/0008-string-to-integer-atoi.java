@@ -1,35 +1,56 @@
 class Solution {
     public int myAtoi(String s) {
-        int index = 0; 
-        int sign = 1; 
-        int results = 0; 
-        //skip all white spaces
-        while (index < s.length() && s.charAt(index) == ' ') {
-            index++;
+        int res = 0; 
+        boolean isNegative = false; 
+        int read = 0; 
+        while(read < s.length() && s.charAt(read) == ' ') {
+            // step1
+             read++; 
         }
         
-        if(index < s.length() && (s.charAt(index) =='-' || s.charAt(index) == '+') ) {
-            if(s.charAt(index) == '-') {
-                sign = -1;
+        //step 2 
+//         if( read < s.length()  && s.charAt(read) == '-') {
+//             isNegative = true; 
+//             read++; 
+//         } 
+//          if( read < s.length()  && s.charAt(read) == '+') {
+//             isNegative = false; 
+//             read++; 
+//         } 
+        
+        
+        if(read < s.length() && (s.charAt(read) =='-' || s.charAt(read) == '+') ) {
+            if(s.charAt(read) == '-') {
+                isNegative = true;
             } else {
-                sign = 1;
+                isNegative = false;
             }
-            index++;
+            read++;
         }
         
-        while (index < s.length() && Character.isDigit(s.charAt(index))) {
-            int digit = s.charAt(index) - '0'; // convert char to int 
-            //check for overflow 
-            if(results > Integer.MAX_VALUE / 10 || (results == Integer.MAX_VALUE / 10 && digit > 7)) {
-                if(sign == -1) {
-                    return Integer.MIN_VALUE; 
+        
+        
+        while(read < s.length() && Character.isDigit(s.charAt(read))) {
+            int digit = s.charAt(read) - '0'; // convert to int
+            
+            // clamp
+            if( (res > Integer.MAX_VALUE / 10) || (res == Integer.MAX_VALUE / 10 && digit > Integer.MAX_VALUE % 10)) {
+                if(isNegative) {
+                    return  Integer.MIN_VALUE;
                 } else {
-                    return Integer.MAX_VALUE;
+                    return  Integer.MAX_VALUE;
                 }
+                
             }
-            results = results * 10 + digit; 
-            index++;
+            
+            res = res * 10 + digit;
+            read++; 
+         }
+        
+        if(isNegative) {
+            res = - res; 
         }
-        return results * sign;
+        
+        return res; 
     }
 }

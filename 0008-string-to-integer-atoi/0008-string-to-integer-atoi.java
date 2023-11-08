@@ -8,23 +8,13 @@ class Solution {
              read++; 
         }
         
-        //step 2 
-//         if( read < s.length()  && s.charAt(read) == '-') {
-//             isNegative = true; 
-//             read++; 
-//         } 
-//          if( read < s.length()  && s.charAt(read) == '+') {
-//             isNegative = false; 
-//             read++; 
-//         } 
-        
-        
         if(read < s.length() && (s.charAt(read) =='-' || s.charAt(read) == '+') ) {
             if(s.charAt(read) == '-') {
                 isNegative = true;
-            } else {
-                isNegative = false;
-            }
+            } 
+            // else {
+            //     isNegative = false;
+            // }
             read++;
         }
         

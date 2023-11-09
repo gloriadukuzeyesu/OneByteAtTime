@@ -1,48 +1,46 @@
-class DDListNode{
-    DDListNode next;
-    DDListNode prev;
-    String val;
-    DDListNode(String value) {
-        val = value;
-        next = null;
-        prev = null;
-    }
-}
-
 class BrowserHistory {
-    DDListNode head;
-    DDListNode current;
-    String urlName; 
+    DDListNode head; 
+    DDListNode current; 
 
     public BrowserHistory(String homepage) {
-        urlName = homepage;
-        head = new DDListNode(urlName);
-        current = head;
-    }
-    
-    public void visit(String url) {
-        DDListNode newNode = new DDListNode(url);
-        current.next = newNode;
-        newNode.prev = current;
-        // update the current with the new node
-        current = newNode; 
+        head = new DDListNode(homepage); 
+        current = head; 
         
     }
     
+    public void visit(String url) {
+        DDListNode newNode = new DDListNode(url); 
+        current.next = newNode; 
+        newNode.prev = current;
+        // update the current to be the newNode
+        current = newNode; 
+    }
+    
     public String back(int steps) {
-        while(steps > 0 && current.prev != null) {
-           current = current.prev; 
-            steps --;
+        while(steps != 0 && current.prev != null) {
+            current = current.prev; 
+            steps--; 
         }
-        return current.val;   
+        return current.val; 
     }
     
     public String forward(int steps) {
-        while(steps > 0 && current.next != null) {
+        while(steps != 0 && current.next != null) {
             current = current.next;
             steps--; 
         }
         return current.val; 
+    }
+}
+
+class DDListNode {
+    DDListNode next; 
+    DDListNode prev; 
+    String val; 
+    public DDListNode(String url) {
+        this.val = url; 
+        this.next = null;
+        this.prev = null; 
     }
 }
 

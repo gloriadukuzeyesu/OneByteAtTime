@@ -15,15 +15,20 @@
  */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        return areKeysInRange(root, null, null); 
+        return validate (root,null,null); 
     }
-    public boolean areKeysInRange(TreeNode root, Integer min, Integer max) {
-        if (root == null) return true;
-
-        if ((min != null && root.val <= min) || max != null && root.val >= max){
-            return false;
+    public boolean validate(TreeNode root, Integer max, Integer min) {
+        if(root == null) {
+            return true; 
         }
-
-        return areKeysInRange(root.left, min, root.val) && areKeysInRange(root.right, root.val, max);
+        // current node must be between min and max
+        if( (min != null && root.val <= min) || (max != null && root.val >= max)) {
+            return false; 
+        }
+        
+          // check left subtree with updated max
+        // check right subtree with updated min
+          
+        return validate(root.left, root.val, min) &&  validate(root.right, max, root.val); 
     }
 }

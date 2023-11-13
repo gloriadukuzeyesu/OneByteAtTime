@@ -1,53 +1,38 @@
 class Solution {
-    public static int[][] DRCT = {{1,0},{-1,0},{0,1},{0,-1}};
     public boolean exist(char[][] board, String word) {
-        int ROWS = board.length;
-        int COLS = board[0].length; 
-        
-        for(int i = 0; i < ROWS; i++) {
-            for(int j = 0; j < COLS; j++) {
-                if(board[i][j] == word.charAt(0) && backTrack(board, i,j,word,0)) {
-                    return true;
+        // find the first char
+        // perfom dfs in four directions to find next character
+        int rows = board.length; 
+        int cols = board[0].length;  
+        for(int i = 0; i < rows; i++) { 
+            for(int j = 0; j < cols; j++) {
+                if(board[i][j] == word.charAt(0) && dfs(board, i, j, word, 0)) {
+                   return true; 
                 }
             }
         }
-        return false;   
+        return false; 
     }
-    
-    private boolean backTrack(char[][]board, int i, int j, String word, int count) {
-        if(count == word.length()) {
-            return true;  // word is found 
-        }
-        
-        if(i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != word.charAt(count)) {
+    public boolean dfs(char[][] grid, int row, int col, String word, int index) {
+     
+        // check boundaries
+        if(row >= grid.length || row < 0 || col >= grid[0].length || col < 0 || grid[row][col] != word.charAt(index)) {
             return false; 
         }
         
-        // add the i, j to visited, we will mark it instead; 
-        char temp = board[i][j];
-        board[i][j] = ' '; 
-        
-        boolean found = false; 
-        
-        // native approach but still works 
-//         if (
-//          backTrack(board, i + 1, j, word, count + 1) || 
-//          backTrack(board, i - 1, j, word, count + 1) ||
-//          backTrack(board, i, j + 1, word, count + 1) ||
-//          backTrack(board, i, j - 1, word, count + 1)) 
-//         {
-//              found = true; 
-
-//         }
-        
-        for(int[] dir : DRCT) {
-             if( backTrack(board, i + dir[0] , j + dir[1], word, count + 1)) {
-                found = true; 
-                break;
-             }    
-            
+        if(index == word.length() - 1) {
+            return true; // word is found. 
         }
-        board[i][j] = temp; 
-        return found;   
+        grid[row][col] = '#'; // mark it 
+   
+        if( dfs(grid, row + 1, col, word, index + 1) || 
+            dfs(grid, row + 1, col, word, index + 1) || 
+            dfs(grid, row - 1, col, word, index + 1) || 
+            dfs(grid, row, col + 1, word, index + 1) ||
+            dfs(grid, row, col - 1, word, index + 1)) {
+             return true; 
+        }
+        grid[row][col] = word.charAt(index); 
+      return false; 
     }
 }

@@ -31,23 +31,22 @@ class Solution {
         }
         
         int maxWidth = 0;
-        LinkedList<Combination> queue = new LinkedList<>();
-
-        queue.addLast(new Combination(root, 0));
+        Queue<Combination> queue = new LinkedList<>();
+        queue.add(new Combination(root, 0));
 
         while (queue.size() > 0) {
-            Combination head = queue.getFirst();
+            Combination head = queue.peek();
 
             // iterate through the current level
             int currLevelSize = queue.size();
             Combination elem = null;
             for (int i = 0; i < currLevelSize; ++i) {
-                elem = queue.removeFirst();
+                elem = queue.poll();
                 TreeNode node = elem.node;
                 if (node.left != null)
-                    queue.addLast(new Combination(node.left, 2 * elem.index));
+                    queue.add(new Combination(node.left, 2 * elem.index));
                 if (node.right != null)
-                    queue.addLast(new Combination(node.right, 2 * elem.index + 1));
+                    queue.add(new Combination(node.right, 2 * elem.index + 1));
             }
 
             // calculate the length of the current level,
@@ -56,31 +55,6 @@ class Solution {
         }
 
         return maxWidth;
-//         int maxWidth = 0; 
-//         Queue<Combination> queue = new LinkedList<>(); 
-//         queue.add(new Combination(root, 0)); 
-//         while(!queue.isEmpty()) {
-//               int size = queue.size(); 
-//             // head
-//             int start = queue.poll().index; 
-//             int end = 0; 
-//             for(int i = 0; i < size; i++) {
-//                 Combination head = queue.poll();
-//                 if(head != null) {
-//                      end = head.index;
-//                 }
-//                 if(head.node.left != null) {
-//                     queue.offer(new Combination(head.node.left, head.index * 2));
-//                 }
-//                 if(head.node.right != null) {
-//                    queue.offer(new Combination(head.node.right, (head.index * 2) + 1)); 
-//                 }
-//             }
-//             int width = end - start + 1; 
-//             maxWidth = Math.max(maxWidth, width); 
-            
-//         }
-//         return maxWidth; 
     }
 }
 

@@ -16,23 +16,21 @@
 class Solution {
     public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
         List<TreeNode> res = new ArrayList<>(); 
-        serialize(root, new HashMap<>(), res);
+        Serialize(root, res, new HashMap<>()); 
         return res; 
     }
-    public String serialize(TreeNode node, Map<String, Integer> count, List<TreeNode> res) {
-        // pre order traversal
-        if(node == null) {
-            return "null";
+    public String Serialize (TreeNode root, List<TreeNode> res, Map<String, Integer> map) {
+        if(root == null) {
+            return "null"; 
         }
-        String leftSubtree = serialize(node.left, count, res);
-        String rightSubTree = serialize(node.right, count, res);
-        // check if we 've seen this before
-        String repre = node.val + "," + leftSubtree + "," + rightSubTree;
-        count.put(repre, count.getOrDefault(repre, 0) + 1); 
-        if(count.get(repre) == 2) {
-            res.add(node);            
+        String leftLeg = Serialize(root.left, res, map); 
+        String rigthLeg = Serialize(root.right, res, map); 
+        
+        String serialize = root.val + "," + leftLeg + "," + rigthLeg; 
+        map.put(serialize, map.getOrDefault(serialize, 0) + 1); 
+        if(map.get(serialize) == 2) {
+            res.add(root); 
         }
-        return repre;
+        return serialize; 
     }
-    
 }

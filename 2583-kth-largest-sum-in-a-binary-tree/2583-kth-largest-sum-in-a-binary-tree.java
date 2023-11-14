@@ -18,7 +18,6 @@ class Solution {
         Queue<TreeNode> queue = new LinkedList<>();
         List<Long> sums = new ArrayList<>(); 
         queue.add(root); 
-        
         while(!queue.isEmpty()) {
             int size = queue.size(); 
             long sumLevel = 0; 
@@ -35,9 +34,9 @@ class Solution {
             sums.add(sumLevel); 
         }
         Collections.sort(sums);
-        Collections.reverse(sums); 
+        
         if(k > sums.size()) return - 1; 
         
-        return sums.get(k - 1); 
+        return sums.get(sums.size() - k); 
     }
 }

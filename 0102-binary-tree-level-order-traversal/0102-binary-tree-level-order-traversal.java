@@ -15,29 +15,29 @@
  */
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
+        
         List<List<Integer>> result = new ArrayList<>(); 
-        if(root == null) {
-            return result; 
-        }
+        if(root == null) return result; 
+        bfs(root, result); 
+        return result; 
+    }
+    public void bfs(TreeNode root, List<List<Integer>> result) {
         Queue<TreeNode> queue = new LinkedList<>(); 
         queue.add(root); 
         while(!queue.isEmpty()) {
             int size = queue.size(); 
-            List<Integer> level = new ArrayList<>(); 
+            List<Integer> listLevel = new ArrayList<>(); 
             for(int i = 0; i < size; i++) {
-                TreeNode currentNode = queue.poll(); 
-                level.add(currentNode.val); 
-                if(currentNode.left != null) {
-                    queue.add(currentNode.left);
+                TreeNode curr = queue.poll(); 
+                 listLevel.add(curr.val); 
+                if(curr.left != null) {
+                    queue.offer(curr.left); 
                 }
-                 if(currentNode.right != null) {
-                    queue.add(currentNode.right); 
+                if(curr.right != null) {
+                    queue.offer(curr.right); 
                 }
-                
             }
-            result.add(level); 
+            result.add(listLevel); 
         }
-        return result;
-        
     }
 }

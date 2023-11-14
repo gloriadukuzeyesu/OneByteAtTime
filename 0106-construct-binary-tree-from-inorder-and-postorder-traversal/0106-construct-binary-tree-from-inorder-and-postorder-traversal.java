@@ -19,25 +19,8 @@ class Solution {
         for(int i = 0; i < inorder.length; i++) {
             idxMap.put(inorder[i], i); 
         }
-        return buildTreeHelper(postorder, idxMap, 0, inorder.length - 1, postorder.length - 1);
-
-        //return treeBuilder(postorder, postorder.length - 1, 0, inorder.length, map);
+       return buildTreeHelper(postorder, idxMap, 0, inorder.length - 1, postorder.length - 1);
     }
-//     public TreeNode treeBuilder(int[] postorder, int postIndex, int inLow, int inHigh, Map<Integer, Integer> map) {
-//         if(postIndex < 0 || inLow > inHigh) {
-//             return null; 
-//         }
-//         TreeNode root = new TreeNode(postorder[postIndex]); 
-//         int mid = map.get(root.val); 
-//         int countToSkip =  (inHigh - mid) + 1; 
-        
-        
-//         root.left = treeBuilder(postorder, postIndex - countToSkip, inLow, mid - 1, map);
-//         root.right = treeBuilder(postorder, postIndex - 1, mid + 1, inHigh, map); 
-        
-
-//         return root;
-//     }
     
     
     public TreeNode buildTreeHelper(int[] postorder, Map<Integer, Integer> idxMap,

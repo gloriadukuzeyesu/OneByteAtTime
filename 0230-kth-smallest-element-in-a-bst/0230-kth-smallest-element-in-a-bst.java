@@ -15,25 +15,18 @@
  */
 class Solution {
     public int kthSmallest(TreeNode root, int k) {
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(k, (a,b) -> b - a);
-        inorderTraversal(root, maxHeap, k); 
-        return maxHeap.poll(); 
+        // bcz this is a BSt, use an inorder traversal 
+        List<Integer> list = new ArrayList<>(); 
+        inOrder(root, k, list); 
+        return list.get(k - 1); 
+        
     }
-    
-    public void inorderTraversal(TreeNode root,  PriorityQueue<Integer> maxHeap, int k) {
+    public void inOrder(TreeNode root, int k , List<Integer> list) {
         if(root == null) {
             return; 
-        } 
-        // left
-        inorderTraversal(root.left, maxHeap, k); 
-        // current node
-        if(maxHeap.size() < k) {
-            maxHeap.offer(root.val); 
-        } else if (maxHeap.peek() > root.val) {
-            maxHeap.poll(); 
-            maxHeap.offer(root.val); 
         }
-        // right 
-        inorderTraversal(root.right, maxHeap, k); 
+        inOrder(root.left, k, list); 
+        list.add(root.val); 
+        inOrder(root.right, k, list); 
     }
-}   
+}

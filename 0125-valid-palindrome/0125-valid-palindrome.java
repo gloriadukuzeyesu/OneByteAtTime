@@ -2,6 +2,7 @@ class Solution {
     public boolean isPalindrome(String s) {
         
         String sCopy = s.toLowerCase(); 
+        
         int f = 0; 
         int b = sCopy.length() - 1; 
         

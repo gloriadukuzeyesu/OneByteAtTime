@@ -18,7 +18,6 @@ class Solution {
                 L++; 
             }
              R++;
-            
         }
         return res; 
     }

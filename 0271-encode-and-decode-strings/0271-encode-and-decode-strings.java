@@ -1,32 +1,33 @@
 public class Codec {
+    // the key here is to use a delimeter which is on an ascii value. 
+    // Example: π 
+    
 
     // Encodes a list of strings to a single string.
     public String encode(List<String> strs) {
-        StringBuilder encoded = new StringBuilder();
-        
-        for(int i = 0;  i< strs.size(); i++) { 
-          encoded.append(strs.get(i).length()).append("#").append(strs.get(i));   
+        StringBuilder encoded_string = new StringBuilder();
+        for(String str : strs) {
+            encoded_string.append(str).append("π"); 
         }
-        
-        return encoded.toString();
+        System.out.println(encoded_string.toString()); 
+        return encoded_string.toString(); 
     }
 
     // Decodes a single string to a list of strings.
     public List<String> decode(String s) {
-        List<String> decoded = new ArrayList<>();
-        // get the length 
-        int i = 0; 
-        while ( i < s.length()) {
-            int j = i; 
-            while (s.charAt(j) != '#') {
-                j++;
+        List<String> strs = new ArrayList<>();
+        StringBuilder sb = new StringBuilder(); 
+        for(int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i); 
+            if(c != 'π') {
+                sb.append(c); 
+            }else{
+                // end of the string
+                strs.add(sb.toString()); 
+                sb.setLength(0);
             }
-            int leng = Integer.parseInt(s.substring(i,j));
-            i = j + 1 + leng;
-            String currentStr = s.substring(j + 1, i);
-            decoded.add(currentStr);     
         }
-        return decoded;      
+        return strs; 
     }
 }
 

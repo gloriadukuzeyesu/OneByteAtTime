@@ -15,12 +15,11 @@ class Node {
 
 class Solution {
     public Node copyRandomList(Node head) {
-        // copy of each node
+        // copy of each node within a map
         // key = original node and value = copy of the node
         
-        
         Map<Node, Node> map = new HashMap<>(); 
-        Node current = head; // shollow copy 
+        Node current = head; 
         while(current != null) {
             map.put(current, new Node(current.val));
             current = current.next;
@@ -32,9 +31,7 @@ class Solution {
             map.get(current).next = map.get(current.next); 
             map.get(current).random =  map.get(current.random);
             current = current.next; 
-        }
-        
-        
+        } 
         return  map.get(head); 
     }
 }

@@ -9,7 +9,7 @@ class Solution {
             if(set.contains(c)) {
                 set.remove(s.charAt(slow)); 
                 slow++; 
-                
+               // set.clear();
             } else{
                 set.add(c); 
                 max = Math.max(max, set.size()); 

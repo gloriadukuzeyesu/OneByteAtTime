@@ -4,26 +4,19 @@ class Solution {
         brackets.put('(', ')'); 
         brackets.put('{', '}'); 
         brackets.put('[', ']');
-        
         // stack
         Stack<Character> stack = new Stack<>(); 
         for(char c : s.toCharArray()) {
             if(!brackets.containsKey(c)) {
                 if(!stack.isEmpty()) {
-                    char open_bracket = stack.peek(); 
-                    char closing_bracket = brackets.get(open_bracket); 
-                    if(closing_bracket != c) {
+                    if(brackets.get(stack.peek()) != c) {
                         return false; 
-                    } else{
+                    } else
                         stack.pop(); 
-                    }
-                } else {
+                } else
                     return false; 
-                }
-                
-            } else {
+            } else 
                 stack.push(c); 
-            }
         }
         return stack.isEmpty(); 
     }

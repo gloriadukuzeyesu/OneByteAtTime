@@ -1,31 +1,25 @@
 class Solution {
     public int characterReplacement(String s, int k) {
-        // windowLen - count{x} <= k // valid window 
-        Map<Character, Integer> counter = new HashMap<>();
-        int L = 0; 
-        int R = 0; 
-        int res = 0; 
-        while ( R < s.length()) {
-            counter.put(s.charAt(R), counter.getOrDefault(s.charAt(R), 0) + 1); 
-            int maxVal = maxCount (counter); 
-            // check if it is a valid window
-            if (R - L + 1  - maxVal <= k) {
-                // valid window 
-                res = Math.max(res, R - L + 1);  
-            } else {
-                // shrink the counter 
-                counter.put(s.charAt(L), counter.getOrDefault(s.charAt(L), 0) - 1); 
-                L++; 
+        int N = s.length(); 
+        int window_start = 0;
+        int max_count = 0; 
+        int max_length = 0; 
+        int[] char_counts = new int[26]; // each index will keep track of how many chars we have. Example: index A frequency will be kept at index 0, Bfrequency will be kept at index 1, etc.
+        
+        for(int window_end = 0; window_end < N; window_end++) {
+            
+            char_counts[s.charAt(window_end) - 'A']++;
+            max_count = Math.max(max_count, char_counts[s.charAt(window_end) - 'A']); 
+            
+            while (window_end - window_start + 1 - max_count > k ) {
+                // out of operations. 
+                // we can't replace
+                char_counts[s.charAt(window_start) - 'A']--;
+                window_start++; 
             }
-             R++;
+            max_length = Math.max(max_length, window_end - window_start + 1); 
         }
-        return res; 
-    }
-    static int maxCount (Map<Character, Integer> counter) {
-        int maxCount = 0; 
-        for(int val : counter.values()) {
-            maxCount = Math.max(val, maxCount);
-        }
-        return maxCount; 
+        
+        return max_length; 
     }
 }

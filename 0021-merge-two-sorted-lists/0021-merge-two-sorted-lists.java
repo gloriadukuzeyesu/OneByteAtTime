@@ -16,26 +16,21 @@ class Solution {
         ListNode list2_pointer = list2; 
         while(list1_pointer != null && list2_pointer != null) {
             if(list1_pointer.val <= list2_pointer.val) {
-                curr.next = list1_pointer; 
-                list1_pointer = list1_pointer.next; 
+               curr.next = list1_pointer; 
+               list1_pointer = list1_pointer.next; 
             } else {
                 curr.next = list2_pointer; 
                 list2_pointer = list2_pointer.next;  
             }
             curr = curr.next; 
         }
-        // in case l1 ends before l2
-        while(list2_pointer != null) {
-            curr.next = list2_pointer;
-            list2_pointer = list2_pointer.next; 
-            curr  = curr.next; 
-        }
         
-        // case where l2 ends before l1
-        while(list1_pointer != null) {
-            curr.next = list1_pointer; 
-            curr = curr.next; 
-            list1_pointer = list1_pointer.next;    
+        if(list2_pointer !=  null) {
+                curr.next = list2_pointer;
+            }
+        
+        if(list1_pointer != null) {
+            curr.next = list1_pointer;
         }
         
         return dummy.next; 

@@ -10,23 +10,24 @@
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        if (head == null || head.next == null) return null; 
-        ListNode dummyNode = new ListNode(0); 
-        dummyNode.next = head;
-        ListNode first = dummyNode, second = dummyNode; 
+        if(head == null || head.next == null) return null; 
+        ListNode dummy = new ListNode(0); 
+        dummy.next = head; 
+        ListNode fast = dummy; 
+        ListNode slow = dummy; 
         
-        // move the second pointer to the n times. 
-        while (n > 0) {
-            second = second.next; 
+        while(n > 0) {
+            fast = fast.next;
             n--; 
         }
-        // the idea is that the distance maintained between first and second pointer will stay as n.
         
-        while (second.next != null) {
-            first = first.next; 
-            second = second. next; 
+        while(fast.next != null) {
+            fast = fast.next;
+            slow = slow.next; 
         }
-        first.next = first.next.next; 
-        return dummyNode.next;   
+     
+        slow.next = slow.next.next; 
+
+        return dummy.next; 
     }
 }

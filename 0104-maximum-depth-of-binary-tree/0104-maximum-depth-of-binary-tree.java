@@ -13,16 +13,42 @@
  *     }
  * }
  */
+class Pair {
+    private TreeNode key; 
+    private int val; 
+    
+    Pair(TreeNode key, int val){
+        this.key = key;
+        this.val = val; 
+    }
+    public TreeNode getKey(){
+        return key; 
+    }
+    public int getValue() {
+        return val; 
+    }
+}
 class Solution {
     public int maxDepth(TreeNode root) {
-        if(root == null) {
-            return 0; 
+        Stack<Pair> stack = new Stack<>(); 
+        int maxDepth = 0;
+        if(root != null) {
+            stack.push(new Pair(root, 1));
         }
-        if(root.left == null && root.right == null) {
-            return 1; 
+        while(!stack.isEmpty()) {
+            Pair currentPair = stack.pop();
+            TreeNode node = currentPair.getKey(); 
+            int depth = currentPair.getValue(); 
+            maxDepth = Math.max(maxDepth, depth); 
+            if(node.left != null) {
+                stack.push(new Pair(node.left, depth + 1)); 
+            }
+            if(node.right != null) {
+                stack.push(new Pair(node.right, depth + 1)); 
+            }
+            
         }
-        int leftLeg = maxDepth(root.left); 
-        int rightLeg = maxDepth(root.right); 
-        return Math.max(leftLeg, rightLeg) + 1; 
+        return maxDepth; 
+        
     }
 }

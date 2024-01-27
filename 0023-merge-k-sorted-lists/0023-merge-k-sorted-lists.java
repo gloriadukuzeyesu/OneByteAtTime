@@ -10,25 +10,37 @@
  */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
-        // create a min heap
-        // put a every list in a min heap
-        // create a ListNode from that min heap
-        
-        // Space complexity is O(n)
-        // time complexity is O(nlog K)
-        // where K is the number of linked lists 
-        PriorityQueue<Integer> minHeap = new PriorityQueue<>(); 
-        for(ListNode head : lists) {
-            while(head != null) {
-                minHeap.add(head.val); 
-                head = head.next; 
-            }
+        if(lists.length == 0) return null; 
+        if(lists.length == 1) return lists[0]; 
+        ListNode head = mergeTwoLists(lists[0], lists[1]); 
+        for(int i = 2; i < lists.length; i++) {
+            head = mergeTwoLists(head, lists[i]);
         }
+        return head; 
+        
+    }
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode p1 = list1; 
+        ListNode p2 = list2; 
         ListNode dummy = new ListNode(0); 
-        ListNode head = dummy;
-        while(!minHeap.isEmpty()) {
-            head.next = new ListNode(minHeap.remove()); 
-            head = head.next; 
+        ListNode mergedList = dummy; 
+        while(p1 != null && p2 != null) {
+            if(p1.val <= p2.val) {
+                mergedList.next = p1; 
+                p1 = p1.next; 
+            } else {
+                mergedList.next = p2; 
+                p2 = p2.next; 
+            }
+            mergedList = mergedList.next; 
+        }
+        
+        if(p1 != null) {
+            mergedList.next = p1; 
+        }
+        
+        if(p2 != null) {
+            mergedList.next = p2; 
         }
         
         return dummy.next; 

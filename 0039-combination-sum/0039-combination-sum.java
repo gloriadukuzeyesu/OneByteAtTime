@@ -1,23 +1,27 @@
 class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        
-        List<List<Integer>> res = new ArrayList<>(); 
-        List<Integer> curr = new ArrayList<>(); 
-        dfs(res, candidates, curr,0,target);
-        return res; 
+        List<List<Integer>> answer = new ArrayList<>(); 
+        List<Integer> combination = new ArrayList<>(); 
+        backtrack(candidates, 0, answer, combination, target); 
+        return answer; 
     }
-    void dfs( List<List<Integer>> res, int[] candidates,List<Integer> curr,int i,int target) {
+    public void backtrack(int[] candidates, int index, List<List<Integer>> answer, List<Integer> curr_combination, int target) {
         if(target == 0) {
-            res.add(new ArrayList<>(curr)); 
+            answer.add(new ArrayList<>(curr_combination)); 
             return; 
         }
-        if(i >= candidates.length ||  target < 0 ) {
+        if(target < 0) {
             return; 
         }
-        curr.add(candidates[i]); 
-        dfs(res, candidates, curr,i, target - candidates[i]); 
-        curr.remove(curr.size() - 1);
-        dfs(res, candidates, curr,i + 1, target); 
+        
+        if(index >= candidates.length) {
+            return; 
+        }
+  
+        for(int i = index; i < candidates.length; i++) {
+            curr_combination.add(candidates[i]); 
+            backtrack(candidates, i, answer, curr_combination, target - candidates[i]);
+            curr_combination.removeLast(); 
+        }
     }
-    
 }

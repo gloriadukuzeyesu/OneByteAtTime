@@ -14,25 +14,23 @@
  * }
  */
 class Solution {
-     int maxSum = Integer.MIN_VALUE;
+     int maxSum;
     public int maxPathSum(TreeNode root) {
-        maxPathFinder(root);
-        return maxSum;  
+        maxSum = Integer.MIN_VALUE; 
+        findSum(root); 
+        return maxSum; 
     }
-    private int maxPathFinder(TreeNode root) {
+    
+    public int findSum(TreeNode root) {
         if(root == null) {
-            return 0; 
-        }
+            return 0;
+        } 
+        int leftSum = Math.max(findSum(root.left), 0); 
+        int rightSum = Math.max(findSum(root.right), 0); 
         
-        // if the sum from the left is negative, take 0
-        int sumFromLeftLeg = Math.max(maxPathFinder(root.left),0); 
-        int sumFromRightLeg = Math.max(maxPathFinder(root.right),0); 
+        // all of 3 together
+        maxSum = Math.max(maxSum, leftSum + rightSum + root.val); 
         
-        // update the maxSum ( left + right + root.va)
-        maxSum = Math.max( maxSum, (sumFromLeftLeg + sumFromRightLeg + root.val));
-        
-        // return the max sum from the root when there is a split. 
-        return Math.max( (sumFromLeftLeg + root.val), (sumFromRightLeg + root.val)); 
-        
+        return Math.max(leftSum + root.val, rightSum + root.val);    
     }
 }

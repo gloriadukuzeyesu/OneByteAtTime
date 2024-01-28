@@ -15,28 +15,20 @@
  */
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        Map<Integer, Integer> inorderMap = new HashMap<>(); 
-        for(int i = 0; i < inorder.length; i++) {
-            inorderMap.put(inorder[i], i); 
-        }
-        return buildTree(preorder, 0, 0, inorder.length - 1,  inorderMap); 
-    }
-    public TreeNode buildTree(int[] preorder, int preIndex, int inLowIndex, int inHighIndex, Map<Integer, Integer> inorderMap) {
-        if(preIndex >= preorder.length || inLowIndex > inHighIndex) {
+        // edge cases
+        if(preorder.length < 1 || inorder.length < 1) {
             return null; 
         }
-        //  if(preIndex >= preorder.length) {
-        //     return null; 
-        // }
-        
-        
-        TreeNode root = new TreeNode(preorder[preIndex]); 
-        int mid = inorderMap.get(root.val); 
-        int numElementsOnLeft = (mid - inLowIndex) + 1; 
-        
-        root.left = buildTree(preorder, preIndex + 1, inLowIndex, mid - 1, inorderMap); 
-        root.right = buildTree(preorder, preIndex + numElementsOnLeft, mid + 1, inHighIndex, inorderMap); 
-        
+        TreeNode root = new TreeNode(preorder[0]); 
+        int mid = 0; 
+        for(int i = 0; i < inorder.length; i++) {
+            if(preorder[0] == inorder[i]) {
+                mid = i; 
+            }
+        }
+        root.left = buildTree(Arrays.copyOfRange(preorder, 1, mid + 1), Arrays.copyOfRange(inorder, 0, mid + 1));
+        root.right = buildTree(Arrays.copyOfRange(preorder, mid + 1, preorder.length), 
+                               Arrays.copyOfRange(inorder, mid + 1, inorder.length));
         return root; 
     }
 }

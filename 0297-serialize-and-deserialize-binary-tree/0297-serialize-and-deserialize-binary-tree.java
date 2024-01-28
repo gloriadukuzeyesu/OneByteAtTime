@@ -8,58 +8,50 @@
  * }
  */
 public class Codec {
-    int i = 0; 
+    private int index = 0; 
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-       // pre order
-        // Root -> left -> right
-       List<String> listOfvals = new ArrayList<>(); 
-       preOrder(root, listOfvals); 
-       StringBuilder sb = new StringBuilder(); 
-       for( String val : listOfvals) {
-           sb.append(val).append(","); 
-       }
+        // preOrder Root left right 
+        List<String> list = new ArrayList<>(); 
+        StringBuilder sb = new StringBuilder(); 
+        preOrder(root, list); 
+        for(String str : list) {
+            sb.append(str).append("#"); 
+        }
         System.out.println(sb.toString()); 
-       return sb.toString(); 
+        return sb.toString(); 
+    }
+    public void preOrder(TreeNode root,  List<String>list) {
+        if(root == null) {
+            list.add("N"); 
+            return; 
+        }
+        list.add(root.val + ""); 
+        preOrder(root.left, list);
+        preOrder(root.right, list);
     }
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        // "1,2,N, N"
-        String[] vals = data.split(","); 
-        for(String x : vals) {
-            System.out.print(x + " "); 
-        }
-       return deserializeDFS(vals); 
+        String[] vals = data.split("#");
+        System.out.println(Arrays.toString(vals)); 
+        return deserializeDfs(vals); 
     }
-    
-    public TreeNode deserializeDFS(String[] vals) {
-        if(vals == null) {
-            return null; 
-        }
-        String val = vals[i]; 
+    public TreeNode deserializeDfs(String[] vals) {
+        if(vals == null) return null; 
+        String val = vals[index]; 
         if(val.equals("N")) {
-            i++; 
-            return null; 
+            index++; 
+            return null;  
         }
         TreeNode node = new TreeNode(Integer.parseInt(val)); 
-        i++; 
-        node.left = deserializeDFS(vals); 
-        node.right = deserializeDFS(vals); 
+        index++; 
+        node.left = deserializeDfs(vals); 
+        node.right = deserializeDfs(vals);  
         return node; 
     }
-        
-    public void preOrder(TreeNode root, List<String> listOfvals) {
-        if(root == null) {
-            listOfvals.add("N"); 
-            return; 
-        }
-        
-        listOfvals.add(root.val + ""); 
-        preOrder(root.left, listOfvals); 
-        preOrder(root.right, listOfvals);      
-    }
+
 }
 
 // Your Codec object will be instantiated and called as such:

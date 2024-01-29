@@ -21,7 +21,7 @@ class Solution {
         if(row < 0 || row >= rows || col < 0 || col >= cols || grid[row][col] != '1') {
             return; 
         }
-        grid[row][col] = '0'; 
+        grid[row][col] = '#'; 
         dfs(grid, row + 1, col); 
         dfs(grid, row - 1, col); 
         dfs(grid, row, col + 1); 

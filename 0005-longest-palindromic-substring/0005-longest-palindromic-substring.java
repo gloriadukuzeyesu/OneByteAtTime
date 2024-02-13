@@ -1,33 +1,28 @@
 class Solution {
     public String longestPalindrome(String s) {
-        if(s.isEmpty()) {
-            return null;
-        }
-        if(s.length() == 1) {
-            return s;
-        }
-        String longest = s.substring(0,1);
+        String ss = s.substring(0, 1); 
         for(int i = 0; i < s.length(); i++) {
-            // even
-            String tempEven = expand(i,i,s);
-            if(tempEven.length() > longest.length()) {
-                longest = tempEven;
-            }
             // odd
-            String tempOdd = expand(i,i+1,s);
-            if(tempOdd.length() > longest.length()) {
-                longest = tempOdd;
+            String oddString = checkPalindrome(s, i, i + 1); 
+            if(ss.length() < oddString.length()) {
+                ss = oddString; 
             }
+            // even 
+             String evenString = checkPalindrome(s, i, i);
+             if(ss.length() < evenString.length()) {
+                ss = evenString; 
+            }
+            
         }
-        return longest;
+        return ss; 
+        
     }
-     private String expand(int i, int j, String s) {
-          int left = i; 
-          int right = j; 
-          while(left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
-              left--;
-              right++;
-          }
-        return s.substring(left + 1, right); 
-      }
+    
+    public String checkPalindrome(String s, int start, int end) {
+        while(start >= 0 && end < s.length() && start <= end && s.charAt(start) == s.charAt(end)) {
+            start--; 
+            end++;   
+        }
+        return s.substring(start + 1, end); 
+    }
 }

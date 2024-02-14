@@ -1,35 +1,26 @@
 class Solution {
     public int[] pivotArray(int[] nums, int pivot) {
-        List<Integer> lessthanPivot = new ArrayList<>(); 
-        List<Integer> greaterthanPivot = new ArrayList<>(); 
-        List<Integer> equalstoPivot = new ArrayList<>(); 
-        int index = 0; 
+        int left = 0, right = nums.length - 1; 
+        int[] result = new int[nums.length]; 
         
-        for(int num : nums) {
-            if(num > pivot) {
-                greaterthanPivot.add(num); 
-            } else if(num < pivot) {
-                lessthanPivot.add(num);
-            } else{
-                equalstoPivot.add(num); 
-            }
-        }
-        if(!lessthanPivot.isEmpty()){
-            for(int i = 0; i < lessthanPivot.size(); i++) {
-            nums[index++] = lessthanPivot.get(i); 
+        for(int i = 0; i < nums.length; i++) {
+            // checking less val from the front of the array 
+            if(nums[i] < pivot) {
+                result[left++] = nums[i]; 
+            }            
+            // checking from the back of the array 
+            if(nums[nums.length - 1 - i] > pivot) {
+                result[right--] = nums[nums.length - 1 - i]; 
             }
         }
         
-        if(!equalstoPivot.isEmpty()) {
-            for(int i = 0; i < equalstoPivot.size(); i++) {
-                 nums[index++] = equalstoPivot.get(i); 
-            }
+        while(left <= right) {
+            result[left++] = pivot; 
+            result[right--] = pivot;
         }
-        if(!greaterthanPivot.isEmpty()) {
-             for(int i = 0; i < greaterthanPivot.size(); i++) {
-                nums[index++] = greaterthanPivot.get(i); 
-            }
-        }
-        return nums;   
+        
+        
+        return result; 
+        
     }
 }

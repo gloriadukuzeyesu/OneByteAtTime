@@ -4,20 +4,21 @@ class Solution {
         List<List<Integer>> result = new ArrayList<>(); 
         
         for(int num : nums) {
-            int row = 0; 
+            int index = 0; 
+            
             if(frequency.containsKey(num)) {
-                row = frequency.get(num); 
-            } else{
-                row = 0; 
-            } 
-            if( result.size() == row) {
+                // get index 
+                index = frequency.get(num); 
+            }
+            
+            if(result.size() == index) {
                 result.add(new ArrayList<>()); 
             }
-            // Store the integer in the list corresponding to its current frequency.
-            result.get(row).add(num); 
+            
+            result.get(index).add(num); // store num in the corresponding list/row
+            
             frequency.put(num, frequency.getOrDefault(num, 0) + 1); 
         }
         return result; 
-        
     }
 }

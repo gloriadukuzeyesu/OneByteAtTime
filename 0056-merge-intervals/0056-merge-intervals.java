@@ -1,23 +1,42 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        Arrays.sort(intervals, (int[]a, int[]b)-> {
-            return a[0] - b[0]; }); 
-        List<int[]> merged = new ArrayList<>(); 
+        List<int[]> result = new ArrayList<>(); 
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]); 
         
+        int[] tempInterval = null; 
         for(int[] interval : intervals) {
-            // if the list of merged intervals is empty or if the current interval does not overlap with the prev, then append it
-            if(merged.size() == 0 || merged.get(merged.size() - 1)[1] < interval[0]) {
-                // 
-                merged.add(interval);
+            if(tempInterval == null || interval[0] > tempInterval[1]) {
+                result.add(interval); 
+                tempInterval = interval;
             } else {
-                // merge
-                int[]current = merged.get(merged.size() - 1); 
-                current[1] =  Math.max(merged.get(merged.size() - 1)[1], interval[1]); 
-                merged.set(merged.size() - 1, current); 
+                tempInterval[0] = Math.min(interval[0], tempInterval[0]); 
+                tempInterval[1] = Math.max(interval[1], tempInterval[1]); 
             }
-            
         }
-        return merged.toArray(new int[merged.size()][]); 
+
+        return result.toArray(new int[result.size()][2]);   
+        
+        
+        
+//         List<int[]> result = new ArrayList<>(); 
+//         Arrays.sort(intervals, (a, b) -> a[0] - b[0]); 
+        
+//         System.out.println("Sorted: " + Arrays.toString(intervals)); 
+        
+//         int[] tempInterval = null; 
+//         for(int[] interval : intervals) {
+//             if(tempInterval == null || interval[0] > tempInterval[1]) {
+//                 // there is no overlapp 
+//                 result.add(interval); 
+//                 tempInterval = interval; // Update tempInterval
+//             } else {
+//                 tempInterval[0] = Math.min(interval[0], tempInterval[0]); 
+//                 tempInterval[1] = Math.max(interval[1], tempInterval[1]); 
+//             }
+//         }
+        
+        // return result.toArray(new int[result.size()][2]);   
+        
         
     }
 }

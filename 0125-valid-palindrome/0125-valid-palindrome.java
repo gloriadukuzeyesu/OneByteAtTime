@@ -1,27 +1,26 @@
 class Solution {
+    
     public boolean isPalindrome(String s) {
         
-        String sCopy = s.toLowerCase(); 
+        int left = 0, right = s.length() - 1; 
         
-        int f = 0; 
-        int b = sCopy.length() - 1; 
-        
-        while ( f < b) {
-            while( !Character.isLetterOrDigit(sCopy.charAt(f))  && f < b) {
-                f++; 
-            }
+        while( left < right) {
+             // remove spacesnon-alphanumeric characters
             
-            while ( !Character.isLetterOrDigit(sCopy.charAt(b)) && f < b) {
-                b--; 
+            while( !Character.isLetterOrDigit( s.charAt(left)) && left < right) {
+                left++; 
             }
-            
-            if(sCopy.charAt(f) != sCopy.charAt(b)) {
-                return false;
+            while( !Character.isLetterOrDigit(s.charAt(right)) && left < right) {
+                right--; 
             }
-            f++;
-            b--; 
-        }
-        return true;
-
+            // convert all to lower cases
+            if( Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) {
+                return false; 
+            } 
+            left++; 
+            right--; 
+        }           
+        return true; 
     }
+                  
 }

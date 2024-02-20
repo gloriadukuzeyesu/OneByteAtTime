@@ -1,25 +1,42 @@
 class Solution {
     public int characterReplacement(String s, int k) {
-        int N = s.length(); 
-        int window_start = 0;
-        int max_count = 0; 
-        int max_length = 0; 
-        int[] char_counts = new int[26]; // each index will keep track of how many chars we have. Example: index A frequency will be kept at index 0, Bfrequency will be kept at index 1, etc.
         
-        for(int window_end = 0; window_end < N; window_end++) {
-            
-            char_counts[s.charAt(window_end) - 'A']++;
-            max_count = Math.max(max_count, char_counts[s.charAt(window_end) - 'A']); 
-            
-            while (window_end - window_start + 1 - max_count > k ) {
-                // out of operations. 
-                // we can't replace
-                char_counts[s.charAt(window_start) - 'A']--;
-                window_start++; 
+        /*
+        int[] frequency = new int[26]; 
+        int result = 0; 
+        int left = 0; 
+        int maxSoFar = 0; 
+
+        for(int right = 0; right < s.length(); right++) {
+            frequency[s.charAt(right) - 'A']++; // update the count
+            maxSoFar = Math.max(maxSoFar, s.charAt(right) - 'A');    // grab the frequency of frequently seen num    
+            if(right - left + 1 - maxSoFar > k) {
+                // not valid 
+                frequency[s.charAt(left) - 'A']--;
+                left++;
             }
-            max_length = Math.max(max_length, window_end - window_start + 1); 
+            
+            result = Math.max(result, right - left + 1);
         }
+        return result;
+        */
         
-        return max_length; 
+        
+        int[] arr = new int[26];
+        int ans = 0;
+        int max = 0;
+        int i = 0;
+        for (int j = 0; j < s.length(); j++) {
+            arr[s.charAt(j) - 'A']++;
+            max = Math.max(max, arr[s.charAt(j) - 'A']);
+            if (j - i + 1 - max > k) {
+                arr[s.charAt(i) - 'A']--;
+                i++;
+            }
+            ans = Math.max(ans, j - i + 1);
+        }
+        return ans;
+        
+        
     }
 }

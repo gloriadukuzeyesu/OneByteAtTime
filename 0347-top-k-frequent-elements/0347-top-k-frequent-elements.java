@@ -1,28 +1,39 @@
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> map = new HashMap<>(); 
-        PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<>( (a,b) -> a.getValue() - b.getValue() );                                                     
-        for(int i = 0; i < nums.length; i++) map.put(nums[i], map.getOrDefault(nums[i],0) + 1); 
+        /*
+        1. map {num: frequecy}
+        2. Heap sort based on the frequency of the numbers
+        3. pop k element of the heap and 
+        4. store them in the resul array
+        5. return result array 
         
-        for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            pq.add(entry);
-            if(pq.size() > k)  pq.poll();
+        time complexity: n log n 
+        space O(n)
+        */
+        
+        Map<Integer, Integer> frequency_map = new HashMap<>(); 
+        for(int num : nums) {
+            frequency_map.put(num, frequency_map.getOrDefault(num, 0) + 1); 
         }
-        int[] res = new int[k];
-        int i = 0; 
-        while(!pq.isEmpty()) {
-            int num = pq.poll().getKey(); 
-            res[i] = num; 
-            i++; 
+        
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>( 
+            (a, b) -> frequency_map.get(a) - frequency_map.get(b)); 
+        
+        for(int num : frequency_map.keySet()) {
+            maxHeap.offer(num); 
+            if(maxHeap.size() > k) {
+                maxHeap.poll(); 
+            }
         }
-        return res; 
-     }
-}      
-     
         
+        int[] result = new int[k]; 
+        int index = 0; 
         
+        while(!maxHeap.isEmpty()) {
+            result[index++] = maxHeap.poll();    
+        }
+    
+        return result; 
         
-        
-                                                                            
-                               
- 
+    }
+}

@@ -13,16 +13,13 @@ class Solution {
         if(root == null) {
             return null; 
         }
-        if(p.val <= root.val && root.val <= q.val) {
-            return root; 
-        }
-        if(p.val >= root.val && root.val >= q.val) {
-            return root; 
-        }
-        TreeNode leftCheck = lowestCommonAncestor(root.left, p, q); 
-        if(leftCheck == null) {
+        
+        if(p.val < root.val && q.val < root.val) {
+            return lowestCommonAncestor(root.left, p, q); 
+        } else if (p.val > root.val && q.val > root.val) {
             return lowestCommonAncestor(root.right, p, q); 
+        } else{
+            return root; 
         }
-        return leftCheck; 
     }
 }
